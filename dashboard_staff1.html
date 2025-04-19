@@ -96,8 +96,8 @@
     </div>
 
     <script>
-        // Data pengguna
-        const users = {
+        // Data pengguna dengan gaji yang disimpan
+        let users = {
             'staff1': {password: 'password1', salary: 2000, role: 'admin'},
             'staff2': {password: 'password2', salary: 2500, role: 'user'},
             'staff3': {password: 'password3', salary: 3000, role: 'user'},
@@ -117,24 +117,21 @@
             window.location.href = 'index.html'; // Halaman login jika bukan staff1
         }
 
+        // Memuatkan data gaji yang telah disimpan dalam localStorage jika ada
+        if (localStorage.getItem('usersData')) {
+            users = JSON.parse(localStorage.getItem('usersData'));
+        }
+
         // Tindakan Log Keluar
         document.getElementById('logout').addEventListener('click', function() {
             localStorage.removeItem('loggedInUser');
             window.location.href = 'index.html';
         });
 
-        // Ambil data gaji daripada localStorage jika ada
-        if (localStorage.getItem('usersData')) {
-            const savedData = JSON.parse(localStorage.getItem('usersData'));
-            for (let key in savedData) {
-                users[key].salary = savedData[key].salary;
-            }
-        }
-
         const salaryList = document.getElementById('salary-list');
         const currentUser = users[loggedInUser];
 
-        // Paparkan gaji staff1
+        // Memaparkan gaji staff1
         const salaryItem = document.createElement('div');
         salaryItem.classList.add('salary-item');
         salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;

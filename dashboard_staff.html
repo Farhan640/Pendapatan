@@ -100,9 +100,15 @@
             window.location.href = 'index.html';
         });
 
+        // Ambil data gaji daripada localStorage jika ada
+        if (localStorage.getItem('usersData')) {
+            users = JSON.parse(localStorage.getItem('usersData'));
+        }
+
         const salaryList = document.getElementById('salary-list');
         const currentUser = users[loggedInUser];
 
+        // Paparkan gaji staf yang sedang log masuk
         const salaryItem = document.createElement('div');
         salaryItem.classList.add('salary-item');
         salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;
