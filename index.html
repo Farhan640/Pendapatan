@@ -96,7 +96,13 @@
 
             if (users[username] && users[username].password === password) {
                 localStorage.setItem('loggedInUser', username);
-                window.location.href = 'dashboard.html';
+                
+                // Redirect ke halaman yang berbeza bergantung pada pengguna
+                if (username === 'staff1') {
+                    window.location.href = 'dashboard_staff1.html';  // Arahkan ke dashboard staff1
+                } else {
+                    window.location.href = 'dashboard_staff.html';  // Arahkan ke dashboard staf lain
+                }
             } else {
                 document.getElementById('error-message').textContent = 'ID Pengguna atau Katalaluan salah!';
             }
