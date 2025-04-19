@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Staf</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard-container {
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .salary-container {
+            margin-top: 20px;
+        }
+
+        .salary-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .salary-item h3 {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Dashboard - Pendapatan Staf</h1>
+            <button id="logout" class="btn">Log Keluar</button>
+        </div>
+
+        <div id="salary-list" class="salary-container"></div>
+    </div>
+
+    <script>
+        const users = {
+            'staff1': {password: 'password1', salary: 2000},
+            'staff2': {password: 'password2', salary: 2500},
+            'staff3': {password: 'password3', salary: 3000},
+            'staff4': {password: 'password4', salary: 2200},
+            'staff5': {password: 'password5', salary: 2800},
+            'staff6': {password: 'password6', salary: 1500},
+            'staff7': {password: 'password7', salary: 2700},
+            'staff8': {password: 'password8', salary: 3200},
+            'staff9': {password: 'password9', salary: 3100},
+            'staff10': {password: 'password10', salary: 2600},
+            'staff11': {password: 'password11', salary: 2400}
+        };
+
+        const loggedInUser = localStorage.getItem('loggedInUser');
+
+        if (!loggedInUser) {
+            window.location.href = 'index.html';
+        }
+
+        document.getElementById('logout').addEventListener('click', function() {
+            localStorage.removeItem('loggedInUser');
+            window.location.href = 'index.html';
+        });
+
+        const salaryList = document.getElementById('salary-list');
+        const currentUser = users[loggedInUser];
+
+        const salaryItem = document.createElement('div');
+        salaryItem.classList.add('salary-item');
+        salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;
+        salaryList.appendChild(salaryItem);
+
+        // Function to update salary
+        function updateSalary(newSalary) {
+            currentUser.salary = newSalary;
+            salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${newSalary}</p>`;
+        }
+
+        // For now, you can manually test by calling updateSalary with a new value
+        // Example:
+        // updateSalary(3500);
+    </script>
+</body>
+</html>
