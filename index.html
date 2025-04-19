@@ -66,8 +66,8 @@
         <div class="login-box">
             <h2>Login</h2>
             <form id="login-form">
-                <!-- Input untuk ID Pengguna -->
-                <input type="text" id="username" class="input-field" placeholder="ID Pengguna" required>
+                <!-- Input untuk ID Pengguna (nombor IC) -->
+                <input type="text" id="id" class="input-field" placeholder="Masukkan ID Pengguna (Nombor IC)" required>
 
                 <!-- Input untuk Kata Laluan -->
                 <input type="password" id="password" class="input-field" placeholder="Katalaluan" required>
@@ -81,34 +81,38 @@
     </div>
 
     <script>
-        // Data pengguna dengan username dan id yang terpisah
+        // Data pengguna dengan ID dan username yang terpisah
         const users = {
-            'staff1': {id: '123456789012', password: 'password1', name: 'Muhammad Hamizan Haizat Bin Mohd Helmy'},
-            'staff2': {id: 'AAN09', password: 'Paanwahab_640', name: 'Muhammad Noor Farhan Bin Wahab'},
-            'staff3': {id: '456789123456', password: 'password3', name: 'Muhammad Arief Murkriz Bin Mohd Radzi'},
-            'staff4': {id: '789123456789', password: 'password4', name: 'Muhammad Adam Haiqal Bin Adnan'},
-            'staff5': {id: '123987654321', password: 'password5', name: 'Staff 5'},
-            'staff6': {id: '456123789012', password: 'password6', name: 'Staff 6'},
-            'staff7': {id: '987321456789', password: 'password7', name: 'Staff 7'},
-            'staff8': {id: '852741963258', password: 'password8', name: 'Staff 8'},
-            'staff9': {id: '147258369258', password: 'password9', name: 'Staff 9'},
-            'staff10': {id: '369852741147', password: 'password10', name: 'Staff 10'},
-            'staff11': {id: '258963147369', password: 'password11', name: 'Staff 11'}
+            '123456789012': {username: 'staff1', password: 'password1', name: 'Muhammad Hamizan Haizat Bin Mohd Helmy'},
+            '987654321098': {username: 'staff2', password: 'password2', name: 'Muhammad Noor Farhan Bin Wahab'},
+            '456789123456': {username: 'staff3', password: 'password3', name: 'Muhammad Arief Murkriz Bin Mohd Radzi'},
+            '789123456789': {username: 'staff4', password: 'password4', name: 'Muhammad Adam Haiqal Bin Adnan'},
+            '123987654321': {username: 'staff5', password: 'password5', name: 'Staff 5'},
+            '456123789012': {username: 'staff6', password: 'password6', name: 'Staff 6'},
+            '987321456789': {username: 'staff7', password: 'password7', name: 'Staff 7'},
+            '852741963258': {username: 'staff8', password: 'password8', name: 'Staff 8'},
+            '147258369258': {username: 'staff9', password: 'password9', name: 'Staff 9'},
+            '369852741147': {username: 'staff10', password: 'password10', name: 'Staff 10'},
+            '258963147369': {username: 'staff11', password: 'password11', name: 'Staff 11'}
         };
 
         // Mengendalikan login form
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            const id = document.getElementById('id').value;  // Ambil ID pengguna yang dimasukkan
+            const password = document.getElementById('password').value;  // Ambil kata laluan
 
-            // Memeriksa sama ada username dan password sepadan
-            if (users[username] && users[username].password === password) {
-                // Simpan nama pengguna yang log masuk
+            // Memeriksa sama ada ID dan password sepadan
+            if (users[id] && users[id].password === password) {
+                const username = users[id].username;  // Ambil username berdasarkan ID pengguna
+
+                // Simpan username yang log masuk untuk pengalihan
                 localStorage.setItem('loggedInUser', username);
+
+                // Pengalihan berdasarkan username
                 window.location.href = `dashboard_${username}.html`;  // Pengalihan berdasarkan username
             } else {
-                // Mesej ralat jika username atau password salah
+                // Mesej ralat jika ID atau password salah
                 document.getElementById('error-message').textContent = 'ID Pengguna atau Katalaluan salah!';
             }
         });
