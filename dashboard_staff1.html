@@ -96,6 +96,7 @@
     </div>
 
     <script>
+        // Inisialisasi data pengguna
         const users = {
             'staff1': {password: 'password1', salary: 2000, role: 'admin'},
             'staff2': {password: 'password2', salary: 2500, role: 'user'},
@@ -125,10 +126,19 @@
         const salaryList = document.getElementById('salary-list');
         const currentUser = users[loggedInUser];
 
+        // Memaparkan gaji staff1
         const salaryItem = document.createElement('div');
         salaryItem.classList.add('salary-item');
         salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;
         salaryList.appendChild(salaryItem);
+
+        // Menyemak dan memuatkan data pendapatan daripada localStorage
+        if (localStorage.getItem('usersData')) {
+            const savedData = JSON.parse(localStorage.getItem('usersData'));
+            for (let key in savedData) {
+                users[key].salary = savedData[key].salary;
+            }
+        }
 
         // Fungsi untuk mengemaskini pendapatan
         document.getElementById('update-salary').addEventListener('click', function() {
@@ -136,7 +146,12 @@
             const selectedStaff = document.getElementById('select-staff').value;
 
             if (newSalary && !isNaN(newSalary)) {
+                // Simpan pendapatan yang dikemaskini dalam users dan localStorage
                 users[selectedStaff].salary = parseFloat(newSalary);
+
+                // Simpan data yang dikemaskini ke localStorage
+                localStorage.setItem('usersData', JSON.stringify(users));
+
                 alert('Pendapatan staf telah dikemaskini!');
                 window.location.reload(); // Segarkan untuk kemaskini
             } else {
