@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Sistem Pendapatan Staf</title>
+    <title>Login - Sistem Pendapatan Staf</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -21,7 +21,7 @@
         }
 
         .login-box {
-            background-color: #fff;
+            background-color: white;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -76,17 +76,17 @@
 
     <script>
         const users = {
-            'staff1': {password: 'password1', salary: 2000, role: 'admin'},
-            'staff2': {password: 'password2', salary: 2500, role: 'user'},
-            'staff3': {password: 'password3', salary: 3000, role: 'user'},
-            'staff4': {password: 'password4', salary: 2200, role: 'user'},
-            'staff5': {password: 'password5', salary: 2800, role: 'user'},
-            'staff6': {password: 'password6', salary: 1500, role: 'user'},
-            'staff7': {password: 'password7', salary: 2700, role: 'user'},
-            'staff8': {password: 'password8', salary: 3200, role: 'user'},
-            'staff9': {password: 'password9', salary: 3100, role: 'user'},
-            'staff10': {password: 'password10', salary: 2600, role: 'user'},
-            'staff11': {password: 'password11', salary: 2400, role: 'user'}
+            'staff1': {password: 'password1', name: 'Muhammad Hamizan Haizat Bin Mohd Helmy'},
+            'staff2': {password: 'password2', name: 'Muhammad Noor Farhan Bin Wahab'},
+            'staff3': {password: 'password3', name: 'Muhammad Arief Murkriz Bin Mohd Radzi'},
+            'staff4': {password: 'password4', name: 'Staff 4'},
+            'staff5': {password: 'password5', name: 'Staff 5'},
+            'staff6': {password: 'password6', name: 'Staff 6'},
+            'staff7': {password: 'password7', name: 'Staff 7'},
+            'staff8': {password: 'password8', name: 'Staff 8'},
+            'staff9': {password: 'password9', name: 'Staff 9'},
+            'staff10': {password: 'password10', name: 'Staff 10'},
+            'staff11': {password: 'password11', name: 'Staff 11'}
         };
 
         document.getElementById('login-form').addEventListener('submit', function(e) {
@@ -96,13 +96,7 @@
 
             if (users[username] && users[username].password === password) {
                 localStorage.setItem('loggedInUser', username);
-                
-                // Redirect ke halaman yang berbeza bergantung pada pengguna
-                if (username === 'staff1') {
-                    window.location.href = 'dashboard_staff1.html';  // Arahkan ke dashboard staff1
-                } else {
-                    window.location.href = 'dashboard_staff.html';  // Arahkan ke dashboard staf lain
-                }
+                window.location.href = `dashboard_${username}.html`;  // Pengalihan berdasarkan username
             } else {
                 document.getElementById('error-message').textContent = 'ID Pengguna atau Katalaluan salah!';
             }

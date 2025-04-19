@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Staff 1</title>
+    <title>Dashboard - Staff 1</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,13 +54,6 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
-        .input-field {
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-        }
     </style>
 </head>
 <body>
@@ -71,89 +64,28 @@
         </div>
 
         <div id="salary-list" class="salary-container"></div>
-
-        <div id="update-salary-form" class="salary-container">
-            <h3>Kemaskini Pendapatan</h3>
-            <label for="select-staff">Pilih Staf:</label>
-            <select id="select-staff" class="input-field">
-                <option value="staff1">Staff 1</option>
-                <option value="staff2">Staff 2</option>
-                <option value="staff3">Staff 3</option>
-                <option value="staff4">Staff 4</option>
-                <option value="staff5">Staff 5</option>
-                <option value="staff6">Staff 6</option>
-                <option value="staff7">Staff 7</option>
-                <option value="staff8">Staff 8</option>
-                <option value="staff9">Staff 9</option>
-                <option value="staff10">Staff 10</option>
-                <option value="staff11">Staff 11</option>
-            </select>
-            <label for="new-salary">Pendapatan Baru (RM):</label>
-            <input type="number" id="new-salary" class="input-field" placeholder="Masukkan jumlah baru" required>
-            <button id="update-salary" class="btn">Kemaskini Pendapatan</button>
-            <div id="update-message" class="error"></div>
-        </div>
     </div>
 
     <script>
-        // Data pengguna asal dengan nama yang dikemas kini
-        let users = {
-            'staff1': {password: 'password1', salary: 2000, role: 'admin', name: 'Muhammad Hamizan Haizat Bin Mohd Helmy'},
-            'staff2': {password: 'password2', salary: 2500, role: 'user', name: 'Muhammad Noor Farhan Bin Wahab'},
-            'staff3': {password: 'password3', salary: 3000, role: 'user', name: 'Muhammad Arief Murkriz Bin Mohd Radzi'},
-            'staff4': {password: 'password4', salary: 2200, role: 'user', name: 'Staff 4'},
-            'staff5': {password: 'password5', salary: 2800, role: 'user', name: 'Staff 5'},
-            'staff6': {password: 'password6', salary: 1500, role: 'user', name: 'Staff 6'},
-            'staff7': {password: 'password7', salary: 2700, role: 'user', name: 'Staff 7'},
-            'staff8': {password: 'password8', salary: 3200, role: 'user', name: 'Staff 8'},
-            'staff9': {password: 'password9', salary: 3100, role: 'user', name: 'Staff 9'},
-            'staff10': {password: 'password10', salary: 2600, role: 'user', name: 'Staff 10'},
-            'staff11': {password: 'password11', salary: 2400, role: 'user', name: 'Staff 11'}
+        // Data pengguna staff1
+        const users = {
+            'staff1': {password: 'password1', salary: 2000, role: 'admin', name: 'Muhammad Hamizan Haizat Bin Mohd Helmy'}
         };
 
-        const loggedInUser = localStorage.getItem('loggedInUser');
-
-        if (!loggedInUser || loggedInUser !== 'staff1') {
-            window.location.href = 'index.html'; // Halaman login jika staff1 atau tidak ada sesi
-        }
-
-        // Memuatkan data gaji yang telah disimpan dalam localStorage jika ada
-        if (localStorage.getItem('usersData')) {
-            users = JSON.parse(localStorage.getItem('usersData'));
-        }
-
-        // Tindakan Log Keluar
-        document.getElementById('logout').addEventListener('click', function() {
-            localStorage.removeItem('loggedInUser');
-            window.location.href = 'index.html';
-        });
-
-        const salaryList = document.getElementById('salary-list');
+        const loggedInUser = 'staff1';  // Hardcoded untuk staff1
         const currentUser = users[loggedInUser];
 
-        // Memaparkan gaji staff1
-        const salaryItem = document.createElement('div');
-        salaryItem.classList.add('salary-item');
-        salaryItem.innerHTML = `<h3>Nama: ${currentUser.name}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;
-        salaryList.appendChild(salaryItem);
+        // Memaparkan nama dan pendapatan staff1
+        document.getElementById('salary-list').innerHTML = `
+            <div class="salary-item">
+                <h3>Nama: ${currentUser.name}</h3>
+                <p>Pendapatan: RM ${currentUser.salary}</p>
+            </div>
+        `;
 
-        // Fungsi untuk mengemaskini pendapatan
-        document.getElementById('update-salary').addEventListener('click', function() {
-            const newSalary = document.getElementById('new-salary').value;
-            const selectedStaff = document.getElementById('select-staff').value;
-
-            if (newSalary && !isNaN(newSalary)) {
-                // Simpan perubahan ke dalam users object
-                users[selectedStaff].salary = parseFloat(newSalary);
-
-                // Simpan data yang dikemaskini ke localStorage
-                localStorage.setItem('usersData', JSON.stringify(users));
-
-                alert('Pendapatan staf telah dikemaskini!');
-                window.location.reload(); // Segarkan untuk kemaskini
-            } else {
-                document.getElementById('update-message').textContent = 'Sila masukkan jumlah yang sah!';
-            }
+        // Log keluar
+        document.getElementById('logout').addEventListener('click', function() {
+            window.location.href = 'index.html';
         });
     </script>
 </body>

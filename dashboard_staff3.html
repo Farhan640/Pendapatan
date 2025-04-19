@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Staff 3</title>
+    <style>
+        /* Style yang sama seperti sebelumnya */
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Dashboard - Staff 3</h1>
+            <button id="logout" class="btn">Log Keluar</button>
+        </div>
+
+        <div id="salary-list" class="salary-container"></div>
+    </div>
+
+    <script>
+        const users = {
+            'staff3': {password: 'password3', salary: 3000, role: 'user', name: 'Muhammad Arief Murkriz Bin Mohd Radzi'}
+        };
+
+        const loggedInUser = 'staff3';
+        const currentUser = users[loggedInUser];
+
+        document.getElementById('salary-list').innerHTML = `
+            <div class="salary-item">
+                <h3>Nama: ${currentUser.name}</h3>
+                <p>Pendapatan: RM ${currentUser.salary}</p>
+            </div>
+        `;
+
+        document.getElementById('logout').addEventListener('click', function() {
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
