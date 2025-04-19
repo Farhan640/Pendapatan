@@ -117,13 +117,15 @@
             'staff11': {password: 'password11', salary: 2400, role: 'user', name: 'Staff 11', ic: '258963147369'}
         };
 
+        // Memuatkan data users daripada localStorage
         if (localStorage.getItem('usersData')) {
             users = JSON.parse(localStorage.getItem('usersData'));
         }
 
+        // Mengambil data pengguna yang log masuk
         const loggedInUser = localStorage.getItem('loggedInUser');
         if (!loggedInUser || loggedInUser !== 'staff1') {
-            window.location.href = 'index.html';  // Pastikan hanya Staff1 boleh akses
+            window.location.href = 'index.html';  // Arahkan ke login jika belum log masuk
         }
 
         // Paparkan pendapatan staf yang dipilih
