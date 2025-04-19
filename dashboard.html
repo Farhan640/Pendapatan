@@ -72,7 +72,8 @@
 
         <div id="salary-list" class="salary-container"></div>
 
-        <div id="update-salary-form" class="salary-container">
+        <!-- Hanya staff1 akan nampak borang untuk kemaskini pendapatan -->
+        <div id="update-salary-form" class="salary-container" style="display: none;">
             <h3>Kemaskini Pendapatan</h3>
             <label for="select-staff">Pilih Staf:</label>
             <select id="select-staff" class="input-field">
@@ -116,6 +117,7 @@
             window.location.href = 'index.html';
         }
 
+        // Tindakan Log Keluar
         document.getElementById('logout').addEventListener('click', function() {
             localStorage.removeItem('loggedInUser');
             window.location.href = 'index.html';
@@ -129,7 +131,12 @@
         salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;
         salaryList.appendChild(salaryItem);
 
-        // Function to update salary
+        // Menyembunyikan borang jika bukan staff1
+        if (users[loggedInUser].role !== 'admin') {
+            document.getElementById('update-salary-form').style.display = 'none';
+        }
+
+        // Fungsi untuk mengemaskini pendapatan
         document.getElementById('update-salary').addEventListener('click', function() {
             const newSalary = document.getElementById('new-salary').value;
             const selectedStaff = document.getElementById('select-staff').value;
@@ -138,7 +145,7 @@
                 if (users[loggedInUser].role === 'admin') {
                     users[selectedStaff].salary = parseFloat(newSalary);
                     alert('Pendapatan staf telah dikemaskini!');
-                    window.location.reload(); // Refresh to update the dashboard
+                    window.location.reload(); // Segarkan untuk kemaskini
                 } else {
                     document.getElementById('update-message').textContent = 'Anda tidak mempunyai akses untuk mengubah pendapatan staf lain.';
                 }
