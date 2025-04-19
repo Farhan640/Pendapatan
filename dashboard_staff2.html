@@ -64,18 +64,15 @@
 <body>
     <div class="dashboard-container">
         <div class="dashboard-header">
-            <!-- Nama Staff2 ditulis secara langsung di sini -->
             <h1>Dashboard - Muhammad Noor Farhan Bin Wahab</h1>
         </div>
 
         <div id="salary-list" class="salary-container"></div>
         
-        <!-- Log keluar butang -->
         <button id="logout" class="btn">Log Keluar</button>
     </div>
 
     <script>
-        // Data pengguna asal
         let users = {
             'staff1': {password: 'password1', salary: 2000, role: 'admin', name: 'Muhammad Hamizan Haizat Bin Mohd Helmy'},
             'staff2': {password: 'password2', salary: 2500, role: 'user', name: 'Muhammad Noor Farhan Bin Wahab'},
@@ -90,18 +87,15 @@
             'staff11': {password: 'password11', salary: 2400, role: 'user', name: 'Staff 11'}
         };
 
-        // Memuatkan data pengguna dari localStorage jika ada
         if (localStorage.getItem('usersData')) {
             users = JSON.parse(localStorage.getItem('usersData'));
         }
 
-        // Dapatkan pengguna yang sedang log masuk
         const loggedInUser = localStorage.getItem('loggedInUser');
         if (!loggedInUser || loggedInUser !== 'staff2') {
-            window.location.href = 'index.html'; // Halaman login jika bukan staff2
+            window.location.href = 'index.html';
         }
 
-        // Paparkan data gaji untuk staff2
         const currentUser = users[loggedInUser];
         document.getElementById('salary-list').innerHTML = `
             <div class="salary-item">
@@ -110,7 +104,6 @@
             </div>
         `;
 
-        // Log keluar
         document.getElementById('logout').addEventListener('click', function() {
             localStorage.removeItem('loggedInUser');
             window.location.href = 'index.html';

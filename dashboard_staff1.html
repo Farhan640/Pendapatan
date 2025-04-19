@@ -9,24 +9,26 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f4;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .dashboard-container {
             padding: 20px;
-            background-color: #f4f4f4;
-        }
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
         }
 
         .dashboard-header h1 {
             margin: 0;
+            color: #333;
         }
 
         .btn {
@@ -37,6 +39,7 @@
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
+            margin-top: 20px;
         }
 
         .btn:hover {
@@ -48,55 +51,28 @@
         }
 
         .salary-item {
-            margin-bottom: 15px;
             padding: 15px;
-            background-color: white;
+            background-color: #f9f9f9;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .input-field {
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #333;
         }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
         <div class="dashboard-header">
-            <h1>Dashboard - Staff 1</h1>
-            <button id="logout" class="btn">Log Keluar</button>
+            <h1>Dashboard - Muhammad Hamizan Haizat Bin Mohd Helmy</h1>
         </div>
 
         <div id="salary-list" class="salary-container"></div>
-
-        <div id="update-salary-form" class="salary-container">
-            <h3>Kemaskini Pendapatan</h3>
-            <label for="select-staff">Pilih Staf:</label>
-            <select id="select-staff" class="input-field">
-                <option value="staff1">Staff 1</option>
-                <option value="staff2">Staff 2</option>
-                <option value="staff3">Staff 3</option>
-                <option value="staff4">Staff 4</option>
-                <option value="staff5">Staff 5</option>
-                <option value="staff6">Staff 6</option>
-                <option value="staff7">Staff 7</option>
-                <option value="staff8">Staff 8</option>
-                <option value="staff9">Staff 9</option>
-                <option value="staff10">Staff 10</option>
-                <option value="staff11">Staff 11</option>
-            </select>
-            <label for="new-salary">Pendapatan Baru (RM):</label>
-            <input type="number" id="new-salary" class="input-field" placeholder="Masukkan jumlah baru" required>
-            <button id="update-salary" class="btn">Kemaskini Pendapatan</button>
-            <div id="update-message" class="error"></div>
-        </div>
+        
+        <button id="logout" class="btn">Log Keluar</button>
     </div>
 
     <script>
-        // Data pengguna untuk staff1, staff2, dan seterusnya
         let users = {
             'staff1': {password: 'password1', salary: 2000, role: 'admin', name: 'Muhammad Hamizan Haizat Bin Mohd Helmy'},
             'staff2': {password: 'password2', salary: 2500, role: 'user', name: 'Muhammad Noor Farhan Bin Wahab'},
@@ -111,49 +87,26 @@
             'staff11': {password: 'password11', salary: 2400, role: 'user', name: 'Staff 11'}
         };
 
-        const loggedInUser = localStorage.getItem('loggedInUser');
-
-        if (!loggedInUser || loggedInUser !== 'staff1') {
-            window.location.href = 'index.html'; // Halaman login jika bukan staff1
-        }
-
-        // Memuatkan data gaji yang telah disimpan dalam localStorage jika ada
         if (localStorage.getItem('usersData')) {
             users = JSON.parse(localStorage.getItem('usersData'));
         }
 
-        // Tindakan Log Keluar
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (!loggedInUser || loggedInUser !== 'staff1') {
+            window.location.href = 'index.html';
+        }
+
+        const currentUser = users[loggedInUser];
+        document.getElementById('salary-list').innerHTML = `
+            <div class="salary-item">
+                <h3>Nama: ${currentUser.name}</h3>
+                <p>Pendapatan: RM ${currentUser.salary}</p>
+            </div>
+        `;
+
         document.getElementById('logout').addEventListener('click', function() {
             localStorage.removeItem('loggedInUser');
             window.location.href = 'index.html';
-        });
-
-        const salaryList = document.getElementById('salary-list');
-        const currentUser = users[loggedInUser];
-
-        // Memaparkan gaji staff1
-        const salaryItem = document.createElement('div');
-        salaryItem.classList.add('salary-item');
-        salaryItem.innerHTML = `<h3>Nama: ${currentUser.name}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;
-        salaryList.appendChild(salaryItem);
-
-        // Fungsi untuk mengemaskini pendapatan
-        document.getElementById('update-salary').addEventListener('click', function() {
-            const newSalary = document.getElementById('new-salary').value;
-            const selectedStaff = document.getElementById('select-staff').value;
-
-            if (newSalary && !isNaN(newSalary)) {
-                // Simpan perubahan ke dalam users object
-                users[selectedStaff].salary = parseFloat(newSalary);
-
-                // Simpan data yang dikemaskini ke localStorage
-                localStorage.setItem('usersData', JSON.stringify(users));
-
-                alert('Pendapatan staf telah dikemaskini!');
-                window.location.reload(); // Segarkan untuk kemaskini
-            } else {
-                document.getElementById('update-message').textContent = 'Sila masukkan jumlah yang sah!';
-            }
         });
     </script>
 </body>
