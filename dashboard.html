@@ -74,6 +74,20 @@
 
         <div id="update-salary-form" class="salary-container">
             <h3>Kemaskini Pendapatan</h3>
+            <label for="select-staff">Pilih Staf:</label>
+            <select id="select-staff" class="input-field">
+                <option value="staff1">Staff 1</option>
+                <option value="staff2">Staff 2</option>
+                <option value="staff3">Staff 3</option>
+                <option value="staff4">Staff 4</option>
+                <option value="staff5">Staff 5</option>
+                <option value="staff6">Staff 6</option>
+                <option value="staff7">Staff 7</option>
+                <option value="staff8">Staff 8</option>
+                <option value="staff9">Staff 9</option>
+                <option value="staff10">Staff 10</option>
+                <option value="staff11">Staff 11</option>
+            </select>
             <label for="new-salary">Pendapatan Baru (RM):</label>
             <input type="number" id="new-salary" class="input-field" placeholder="Masukkan jumlah baru" required>
             <button id="update-salary" class="btn">Kemaskini Pendapatan</button>
@@ -83,17 +97,17 @@
 
     <script>
         const users = {
-            'staff1': {password: 'password1', salary: 2000},
-            'staff2': {password: 'password2', salary: 2500},
-            'staff3': {password: 'password3', salary: 3000},
-            'staff4': {password: 'password4', salary: 2200},
-            'staff5': {password: 'password5', salary: 2800},
-            'staff6': {password: 'password6', salary: 1500},
-            'staff7': {password: 'password7', salary: 2700},
-            'staff8': {password: 'password8', salary: 3200},
-            'staff9': {password: 'password9', salary: 3100},
-            'staff10': {password: 'password10', salary: 2600},
-            'staff11': {password: 'password11', salary: 2400}
+            'staff1': {password: 'password1', salary: 2000, role: 'admin'},
+            'staff2': {password: 'password2', salary: 2500, role: 'user'},
+            'staff3': {password: 'password3', salary: 3000, role: 'user'},
+            'staff4': {password: 'password4', salary: 2200, role: 'user'},
+            'staff5': {password: 'password5', salary: 2800, role: 'user'},
+            'staff6': {password: 'password6', salary: 1500, role: 'user'},
+            'staff7': {password: 'password7', salary: 2700, role: 'user'},
+            'staff8': {password: 'password8', salary: 3200, role: 'user'},
+            'staff9': {password: 'password9', salary: 3100, role: 'user'},
+            'staff10': {password: 'password10', salary: 2600, role: 'user'},
+            'staff11': {password: 'password11', salary: 2400, role: 'user'}
         };
 
         const loggedInUser = localStorage.getItem('loggedInUser');
@@ -115,14 +129,19 @@
         salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;
         salaryList.appendChild(salaryItem);
 
-        // Kemaskini pendapatan
+        // Function to update salary
         document.getElementById('update-salary').addEventListener('click', function() {
             const newSalary = document.getElementById('new-salary').value;
+            const selectedStaff = document.getElementById('select-staff').value;
 
             if (newSalary && !isNaN(newSalary)) {
-                currentUser.salary = parseFloat(newSalary);
-                salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;
-                document.getElementById('update-message').textContent = 'Pendapatan berjaya dikemaskini!';
+                if (users[loggedInUser].role === 'admin') {
+                    users[selectedStaff].salary = parseFloat(newSalary);
+                    alert('Pendapatan staf telah dikemaskini!');
+                    window.location.reload(); // Refresh to update the dashboard
+                } else {
+                    document.getElementById('update-message').textContent = 'Anda tidak mempunyai akses untuk mengubah pendapatan staf lain.';
+                }
             } else {
                 document.getElementById('update-message').textContent = 'Sila masukkan jumlah yang sah!';
             }
