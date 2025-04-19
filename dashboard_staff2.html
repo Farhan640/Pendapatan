@@ -89,26 +89,26 @@
             'staff11': {password: 'password11', salary: 2400, role: 'user', name: 'Staff 11'}
         };
 
-        if (localStorage.getItem('usersData')) {
-            users = JSON.parse(localStorage.getItem('usersData'));
-        }
+if (localStorage.getItem('usersData')) {
+    users = JSON.parse(localStorage.getItem('usersData'));
+}
 
-        const loggedInUser = localStorage.getItem('loggedInUser');
-        if (!loggedInUser || loggedInUser !== 'staff2') {
-            window.location.href = 'index.html';
-        }
+const loggedInUser = localStorage.getItem('loggedInUser');
+if (!loggedInUser || loggedInUser !== 'staff2') {
+    window.location.href = 'index.html';
+}
 
-        const currentUser = users[loggedInUser];
-        document.getElementById('salary-list').innerHTML = `
-            <div class="salary-item">
-                <p>Pendapatan: RM ${currentUser.salary}</p>
-            </div>
-        `;
+const currentUser = users[loggedInUser];
+document.getElementById('salary-list').innerHTML = `
+    <div class="salary-item">
+        <p>Pendapatan: RM ${currentUser.salary}</p>
+    </div>
+`;
 
-        document.getElementById('logout').addEventListener('click', function() {
-            localStorage.removeItem('loggedInUser');
-            window.location.href = 'index.html';
-        });
-    </script>
+document.getElementById('logout').addEventListener('click', function() {
+    localStorage.removeItem('loggedInUser');
+    window.location.href = 'index.html';
+});
+</script>
 </body>
 </html>
