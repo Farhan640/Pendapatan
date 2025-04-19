@@ -96,7 +96,7 @@
     </div>
 
     <script>
-        // Inisialisasi data pengguna
+        // Data pengguna
         const users = {
             'staff1': {password: 'password1', salary: 2000, role: 'admin'},
             'staff2': {password: 'password2', salary: 2500, role: 'user'},
@@ -123,16 +123,7 @@
             window.location.href = 'index.html';
         });
 
-        const salaryList = document.getElementById('salary-list');
-        const currentUser = users[loggedInUser];
-
-        // Memaparkan gaji staff1
-        const salaryItem = document.createElement('div');
-        salaryItem.classList.add('salary-item');
-        salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;
-        salaryList.appendChild(salaryItem);
-
-        // Menyemak dan memuatkan data pendapatan daripada localStorage
+        // Ambil data gaji daripada localStorage jika ada
         if (localStorage.getItem('usersData')) {
             const savedData = JSON.parse(localStorage.getItem('usersData'));
             for (let key in savedData) {
@@ -140,13 +131,22 @@
             }
         }
 
+        const salaryList = document.getElementById('salary-list');
+        const currentUser = users[loggedInUser];
+
+        // Paparkan gaji staff1
+        const salaryItem = document.createElement('div');
+        salaryItem.classList.add('salary-item');
+        salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;
+        salaryList.appendChild(salaryItem);
+
         // Fungsi untuk mengemaskini pendapatan
         document.getElementById('update-salary').addEventListener('click', function() {
             const newSalary = document.getElementById('new-salary').value;
             const selectedStaff = document.getElementById('select-staff').value;
 
             if (newSalary && !isNaN(newSalary)) {
-                // Simpan pendapatan yang dikemaskini dalam users dan localStorage
+                // Simpan perubahan ke dalam users object
                 users[selectedStaff].salary = parseFloat(newSalary);
 
                 // Simpan data yang dikemaskini ke localStorage
