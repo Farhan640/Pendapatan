@@ -48,15 +48,28 @@
             border: 1px solid #ddd;
             width: 100%;
         }
+
+        .salary-item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
         <h1>Tukar Pendapatan Staf</h1>
 
+        <!-- Paparkan pendapatan staf yang dipilih -->
+        <div id="salary-info" class="salary-item"></div>
+
         <label for="select-staff">Pilih Staf:</label>
         <select id="select-staff" class="input-field">
-            <option value="staff2">Staff 1</option>
+            <option value="staff1">Staff 1</option>
             <option value="staff2">Staff 2</option>
             <option value="staff3">Staff 3</option>
             <option value="staff4">Staff 4</option>
@@ -79,12 +92,17 @@
 
     <script>
         let users = {
-            'staff1': {password: 'password1', salary: 2000, role: 'admin', name: 'Muhammad Hamizan Haizat Bin Mohd Helmy'},
-            'staff2': {password: 'password2', salary: 2500, role: 'user', name: 'Muhammad Noor Farhan Bin Wahab'},
-            'staff3': {password: 'password3', salary: 3000, role: 'user', name: 'Muhammad Arief Murkriz Bin Mohd Radzi'},
-            'staff4': {password: 'password4', salary: 2200, role: 'user', name: 'Staff 4'},
-            'staff5': {password: 'password5', salary: 2800, role: 'user', name: 'Staff 5'},
-            // Tambahkan IC untuk staf lain...
+            'staff1': {password: 'password1', salary: 2000, role: 'admin', name: 'Muhammad Hamizan Haizat Bin Mohd Helmy', ic: '123456789012'},
+            'staff2': {password: 'password2', salary: 2500, role: 'user', name: 'Muhammad Noor Farhan Bin Wahab', ic: '987654321098'},
+            'staff3': {password: 'password3', salary: 3000, role: 'user', name: 'Muhammad Arief Murkriz Bin Mohd Radzi', ic: '456789123456'},
+            'staff4': {password: 'password4', salary: 2200, role: 'user', name: 'Staff 4', ic: '789123456789'},
+            'staff5': {password: 'password5', salary: 2800, role: 'user', name: 'Staff 5', ic: '123987654321'},
+            'staff6': {password: 'password6', salary: 1500, role: 'user', name: 'Staff 6', ic: '456123789012'},
+            'staff7': {password: 'password7', salary: 2700, role: 'user', name: 'Staff 7', ic: '987321456789'},
+            'staff8': {password: 'password8', salary: 3200, role: 'user', name: 'Staff 8', ic: '852741963258'},
+            'staff9': {password: 'password9', salary: 3100, role: 'user', name: 'Staff 9', ic: '147258369258'},
+            'staff10': {password: 'password10', salary: 2600, role: 'user', name: 'Staff 10', ic: '369852741147'},
+            'staff11': {password: 'password11', salary: 2400, role: 'user', name: 'Staff 11', ic: '258963147369'}
         };
 
         if (localStorage.getItem('usersData')) {
@@ -93,19 +111,45 @@
 
         const loggedInUser = localStorage.getItem('loggedInUser');
         if (!loggedInUser || loggedInUser !== 'staff1') {
-            window.location.href = 'index.html';
+            window.location.href = 'index.html';  // Pastikan hanya Staff1 boleh akses
         }
 
+        // Paparkan pendapatan staf yang dipilih
+        function displaySalaryInfo(staffId) {
+            const selectedStaff = users[staffId];
+            document.getElementById('salary-info').innerHTML = `
+                <h3>Nama: ${selectedStaff.name}</h3>
+                <p>No IC: ${selectedStaff.ic}</p>
+                <p>Pendapatan Semasa: RM ${selectedStaff.salary}</p>
+            `;
+        }
+
+        // Memaparkan gaji staf yang dipilih secara default
+        displaySalaryInfo('staff1');  // Default pilih Staff1
+
+        // Memaparkan gaji staf yang dipilih dalam dropdown
+        document.getElementById('select-staff').addEventListener('change', function(event) {
+            const selectedStaff = event.target.value;
+            displaySalaryInfo(selectedStaff);
+        });
+
+        // Event listener untuk butang "Kemaskini Pendapatan"
         document.getElementById('update-salary-btn').addEventListener('click', function() {
             const selectedStaff = document.getElementById('select-staff').value;
             const newSalary = document.getElementById('new-salary').value;
 
             if (newSalary && !isNaN(newSalary)) {
+                // Mengemas kini pendapatan staf yang dipilih
                 users[selectedStaff].salary = parseFloat(newSalary);
+                
+                // Simpan perubahan ke localStorage
                 localStorage.setItem('usersData', JSON.stringify(users));
 
+                // Paparkan mesej berjaya
                 alert('Pendapatan staf telah dikemaskini!');
-                window.location.href = 'dashboard_staff1.html';  // Kembali ke dashboard Staff1
+                
+                // Segarkan halaman untuk paparkan pendapatan terkini
+                displaySalaryInfo(selectedStaff);
             } else {
                 document.getElementById('update-message').textContent = 'Sila masukkan jumlah yang sah!';
             }

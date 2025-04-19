@@ -59,55 +59,73 @@
             font-size: 18px;
             color: #333;
         }
+
+        .input-field {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
         <div class="dashboard-header">
-            <h1>Muhammad Hamizan Haizat Bin Mohd Helmy</h1>
-            <h1>NO - 021130160065</h1>
+            <h1>Dashboard - Muhammad Hamizan Haizat Bin Mohd Helmy</h1>
         </div>
 
         <div id="salary-list" class="salary-container"></div>
-        
+
         <button id="logout" class="btn">Log Keluar</button>
-        
-        <!-- Butang untuk Tukar Pendapatan -->
+
+        <!-- Butang untuk tukar pendapatan -->
         <button id="update-salary" class="btn">Tukar Pendapatan</button>
     </div>
 
     <script>
+        // Data pengguna (staff1, staff2, etc.)
         let users = {
-            'staff1': {password: 'password1', salary: 2000, role: 'admin', name: 'Muhammad Hamizan Haizat Bin Mohd Helmy'},
-            'staff2': {password: 'password2', salary: 2500, role: 'user', name: 'Muhammad Noor Farhan Bin Wahab'},
-            'staff3': {password: 'password3', salary: 3000, role: 'user', name: 'Muhammad Arief Murkriz Bin Mohd Radzi'},
-            'staff4': {password: 'password4', salary: 2200, role: 'user', name: 'Staff 4'},
-            'staff5': {password: 'password5', salary: 2800, role: 'user', name: 'Staff 5'},
-            // Tambahkan IC untuk staf lain...
+            'staff1': {password: 'password1', salary: 2000, role: 'admin', name: 'Muhammad Hamizan Haizat Bin Mohd Helmy', ic: '123456789012'},
+            'staff2': {password: 'password2', salary: 2500, role: 'user', name: 'Muhammad Noor Farhan Bin Wahab', ic: '987654321098'},
+            'staff3': {password: 'password3', salary: 3000, role: 'user', name: 'Muhammad Arief Murkriz Bin Mohd Radzi', ic: '456789123456'},
+            'staff4': {password: 'password4', salary: 2200, role: 'user', name: 'Staff 4', ic: '789123456789'},
+            'staff5': {password: 'password5', salary: 2800, role: 'user', name: 'Staff 5', ic: '123987654321'},
+            'staff6': {password: 'password6', salary: 1500, role: 'user', name: 'Staff 6', ic: '456123789012'},
+            'staff7': {password: 'password7', salary: 2700, role: 'user', name: 'Staff 7', ic: '987321456789'},
+            'staff8': {password: 'password8', salary: 3200, role: 'user', name: 'Staff 8', ic: '852741963258'},
+            'staff9': {password: 'password9', salary: 3100, role: 'user', name: 'Staff 9', ic: '147258369258'},
+            'staff10': {password: 'password10', salary: 2600, role: 'user', name: 'Staff 10', ic: '369852741147'},
+            'staff11': {password: 'password11', salary: 2400, role: 'user', name: 'Staff 11', ic: '258963147369'}
         };
 
+        // Mendapatkan data dari localStorage jika ada
         if (localStorage.getItem('usersData')) {
             users = JSON.parse(localStorage.getItem('usersData'));
         }
 
         const loggedInUser = localStorage.getItem('loggedInUser');
-        if (!loggedInUser || loggedInUser !== 'staff1') {
-            window.location.href = 'index.html';
+        if (!loggedInUser || loggedInUser === null) {
+            window.location.href = 'index.html'; // Arahkan ke login jika belum log masuk
         }
 
+        // Paparkan pendapatan staff1
         const currentUser = users[loggedInUser];
         document.getElementById('salary-list').innerHTML = `
-        <div class="salary-item">
+            <div class="salary-item">
+                <h3>Nama: ${currentUser.name}</h3>
+                <p>No IC: ${currentUser.ic}</p>
                 <p>Pendapatan: RM ${currentUser.salary}</p>
             </div>
         `;
 
+        // Log keluar dan alihkan ke halaman login
         document.getElementById('logout').addEventListener('click', function() {
             localStorage.removeItem('loggedInUser');
             window.location.href = 'index.html';
         });
 
-        // Event listener untuk butang "Tukar Pendapatan"
+        // Butang "Tukar Pendapatan" untuk pergi ke halaman update_salary.html
         document.getElementById('update-salary').addEventListener('click', function() {
             window.location.href = 'update_salary.html';  // Arahkan ke halaman update_salary.html
         });
