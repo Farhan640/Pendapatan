@@ -9,24 +9,26 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f4;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .dashboard-container {
             padding: 20px;
-            background-color: #f4f4f4;
-        }
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #333;
-            color: white;
-            padding: 10px 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
         }
 
         .dashboard-header h1 {
             margin: 0;
+            color: #333;
         }
 
         .btn {
@@ -37,6 +39,7 @@
             font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
+            margin-top: 20px;
         }
 
         .btn:hover {
@@ -48,11 +51,13 @@
         }
 
         .salary-item {
-            margin-bottom: 15px;
             padding: 15px;
-            background-color: white;
+            background-color: #f9f9f9;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #333;
         }
     </style>
 </head>
@@ -61,10 +66,12 @@
         <div class="dashboard-header">
             <!-- Nama Staff2 ditulis secara langsung di sini -->
             <h1>Dashboard - Muhammad Noor Farhan Bin Wahab</h1>
-            <button id="logout" class="btn">Log Keluar</button>
         </div>
 
         <div id="salary-list" class="salary-container"></div>
+        
+        <!-- Log keluar butang -->
+        <button id="logout" class="btn">Log Keluar</button>
     </div>
 
     <script>
