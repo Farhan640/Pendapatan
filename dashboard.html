@@ -55,8 +55,11 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .salary-item h3 {
-            margin: 0;
+        .input-field {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
         }
     </style>
 </head>
@@ -68,6 +71,14 @@
         </div>
 
         <div id="salary-list" class="salary-container"></div>
+
+        <div id="update-salary-form" class="salary-container">
+            <h3>Kemaskini Pendapatan</h3>
+            <label for="new-salary">Pendapatan Baru (RM):</label>
+            <input type="number" id="new-salary" class="input-field" placeholder="Masukkan jumlah baru" required>
+            <button id="update-salary" class="btn">Kemaskini Pendapatan</button>
+            <div id="update-message" class="error"></div>
+        </div>
     </div>
 
     <script>
@@ -104,15 +115,18 @@
         salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;
         salaryList.appendChild(salaryItem);
 
-        // Function to update salary
-        function updateSalary(newSalary) {
-            currentUser.salary = newSalary;
-            salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${newSalary}</p>`;
-        }
+        // Kemaskini pendapatan
+        document.getElementById('update-salary').addEventListener('click', function() {
+            const newSalary = document.getElementById('new-salary').value;
 
-        // For now, you can manually test by calling updateSalary with a new value
-        // Example:
-        // updateSalary(3500);
+            if (newSalary && !isNaN(newSalary)) {
+                currentUser.salary = parseFloat(newSalary);
+                salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;
+                document.getElementById('update-message').textContent = 'Pendapatan berjaya dikemaskini!';
+            } else {
+                document.getElementById('update-message').textContent = 'Sila masukkan jumlah yang sah!';
+            }
+        });
     </script>
 </body>
 </html>
