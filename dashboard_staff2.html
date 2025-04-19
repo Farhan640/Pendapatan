@@ -25,7 +25,7 @@
             padding: 10px 20px;
         }
 
-        .dashboard-header h1 {
+        .dashboard-header h2 {
             margin: 0;
         }
 
@@ -59,7 +59,7 @@
 <body>
     <div class="dashboard-container">
         <div class="dashboard-header">
-            <h1>Dashboard - Staff 2</h1>
+            <h2 id="staff-name">Dashboard - Staff 2</h2>
             <button id="logout" class="btn">Log Keluar</button>
         </div>
 
@@ -93,8 +93,11 @@
             window.location.href = 'index.html'; // Halaman login jika bukan staff2
         }
 
-        // Paparkan data gaji untuk staff2
+        // Paparkan nama pada <h2> untuk Staff2
         const currentUser = users[loggedInUser];
+        document.getElementById('staff-name').innerText = `Dashboard - ${currentUser.name}`;
+
+        // Paparkan data gaji untuk staff2
         document.getElementById('salary-list').innerHTML = `
             <div class="salary-item">
                 <h3>Nama: ${currentUser.name}</h3>
