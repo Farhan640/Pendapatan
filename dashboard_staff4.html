@@ -3,37 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Staff 4</title>
+    <title>Dashboard - Adam</title>
     <style>
-        /* Style yang sama seperti sebelumnya */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dashboard-container {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            color: #333;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .salary-container {
+            margin-top: 20px;
+        }
+
+        .salary-item {
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
         <div class="dashboard-header">
-            <h1>Dashboard - Staff 4</h1>
-            <button id="logout" class="btn">Log Keluar</button>
+            <h1>Muhammad Adam Haiqal Bin Adnan</h1>
         </div>
 
+        <h1>No Ic - 080504101183</h1>
+
         <div id="salary-list" class="salary-container"></div>
+        
+        <button id="logout" class="btn">Log Keluar</button>
     </div>
 
     <script>
-        const users = {
-            'staff4': {password: 'password4', salary: 2200, role: 'user', name: 'Staff 4'}
+        let users = {
+            'staff1': {password: 'password1', salary: 2000, role: 'admin', name: 'Muhammad Hamizan Haizat Bin Mohd Helmy'},
+            'staff2': {password: 'password2', salary: 2500, role: 'user', name: 'Muhammad Noor Farhan Bin Wahab'},
+            'staff3': {password: 'password3', salary: 3000, role: 'user', name: 'Muhammad Arief Murkriz Bin Mohd Radzi'},
+            'staff4': {password: 'password4', salary: 2200, role: 'user', name: 'Muhammad Adam Haiqal Bin Adnan'},
+            'staff5': {password: 'password5', salary: 2800, role: 'user', name: 'Staff 5'},
+            'staff6': {password: 'password6', salary: 1500, role: 'user', name: 'Staff 6'},
+            'staff7': {password: 'password7', salary: 2700, role: 'user', name: 'Staff 7'},
+            'staff8': {password: 'password8', salary: 3200, role: 'user', name: 'Staff 8'},
+            'staff9': {password: 'password9', salary: 3100, role: 'user', name: 'Staff 9'},
+            'staff10': {password: 'password10', salary: 2600, role: 'user', name: 'Staff 10'},
+            'staff11': {password: 'password11', salary: 2400, role: 'user', name: 'Staff 11'}
         };
 
-        const loggedInUser = 'staff4';
-        const currentUser = users[loggedInUser];
+        if (localStorage.getItem('usersData')) {
+            users = JSON.parse(localStorage.getItem('usersData'));
+        }
 
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (!loggedInUser || loggedInUser !== 'staff4') {
+            window.location.href = 'index.html';
+        }
+
+        const currentUser = users[loggedInUser];
         document.getElementById('salary-list').innerHTML = `
             <div class="salary-item">
-                <h3>Nama: ${currentUser.name}</h3>
                 <p>Pendapatan: RM ${currentUser.salary}</p>
             </div>
         `;
 
         document.getElementById('logout').addEventListener('click', function() {
+            localStorage.removeItem('loggedInUser');
             window.location.href = 'index.html';
         });
     </script>

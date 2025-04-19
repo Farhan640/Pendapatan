@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Staff 2</title>
+    <title>Dashboard - Farhan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -64,8 +64,10 @@
 <body>
     <div class="dashboard-container">
         <div class="dashboard-header">
-            <h1>Dashboard - Muhammad Noor Farhan Bin Wahab</h1>
+            <h1>Muhammad Noor Farhan Bin Wahab</h1>
         </div>
+
+        <h1>No Ic - 090928021047</h1>
 
         <div id="salary-list" class="salary-container"></div>
         
@@ -77,7 +79,7 @@
             'staff1': {password: 'password1', salary: 2000, role: 'admin', name: 'Muhammad Hamizan Haizat Bin Mohd Helmy'},
             'staff2': {password: 'password2', salary: 2500, role: 'user', name: 'Muhammad Noor Farhan Bin Wahab'},
             'staff3': {password: 'password3', salary: 3000, role: 'user', name: 'Muhammad Arief Murkriz Bin Mohd Radzi'},
-            'staff4': {password: 'password4', salary: 2200, role: 'user', name: 'Staff 4'},
+            'staff4': {password: 'password4', salary: 2200, role: 'user', name: 'Muhammad Adam Haiqal Bin Adnan'},
             'staff5': {password: 'password5', salary: 2800, role: 'user', name: 'Staff 5'},
             'staff6': {password: 'password6', salary: 1500, role: 'user', name: 'Staff 6'},
             'staff7': {password: 'password7', salary: 2700, role: 'user', name: 'Staff 7'},
@@ -99,7 +101,6 @@
         const currentUser = users[loggedInUser];
         document.getElementById('salary-list').innerHTML = `
             <div class="salary-item">
-                <h3>Nama: ${currentUser.name}</h3>
                 <p>Pendapatan: RM ${currentUser.salary}</p>
             </div>
         `;
