@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Staff 1</title>
+    <title>Tukar Pendapatan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -26,11 +26,6 @@
             text-align: center;
         }
 
-        .dashboard-header h1 {
-            margin: 0;
-            color: #333;
-        }
-
         .btn {
             padding: 10px 15px;
             background-color: #4CAF50;
@@ -46,34 +41,39 @@
             background-color: #45a049;
         }
 
-        .salary-container {
-            margin-top: 20px;
-        }
-
-        .salary-item {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            font-size: 18px;
-            color: #333;
+        .input-field {
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
         }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
-        <div class="dashboard-header">
-            <h1>Dashboard - Muhammad Hamizan Haizat Bin Mohd Helmy</h1>
-        </div>
+        <h1>Tukar Pendapatan Staf</h1>
 
-        <div id="salary-list" class="salary-container"></div>
-        
-        <!-- Butang Log Keluar -->
-        <button id="logout" class="btn">Log Keluar</button>
-        
-        <!-- Butang untuk Tukar Pendapatan -->
-        <button id="update-salary" class="btn">Tukar Pendapatan</button>
+        <label for="select-staff">Pilih Staf:</label>
+        <select id="select-staff" class="input-field">
+            <option value="staff2">Staff 2</option>
+            <option value="staff3">Staff 3</option>
+            <option value="staff4">Staff 4</option>
+            <option value="staff5">Staff 5</option>
+            <option value="staff6">Staff 6</option>
+            <option value="staff7">Staff 7</option>
+            <option value="staff8">Staff 8</option>
+            <option value="staff9">Staff 9</option>
+            <option value="staff10">Staff 10</option>
+            <option value="staff11">Staff 11</option>
+        </select>
+
+        <label for="new-salary">Pendapatan Baru (RM):</label>
+        <input type="number" id="new-salary" class="input-field" placeholder="Masukkan jumlah baru" required>
+
+        <button id="update-salary-btn" class="btn">Kemaskini Pendapatan</button>
+
+        <div id="update-message" class="error" style="color: red;"></div>
     </div>
 
     <script>
@@ -100,22 +100,19 @@
             window.location.href = 'index.html';
         }
 
-        const currentUser = users[loggedInUser];
-        document.getElementById('salary-list').innerHTML = `
-            <div class="salary-item">
-                <h3>Nama: ${currentUser.name}</h3>
-                <p>Pendapatan: RM ${currentUser.salary}</p>
-            </div>
-        `;
+        document.getElementById('update-salary-btn').addEventListener('click', function() {
+            const selectedStaff = document.getElementById('select-staff').value;
+            const newSalary = document.getElementById('new-salary').value;
 
-        document.getElementById('logout').addEventListener('click', function() {
-            localStorage.removeItem('loggedInUser');
-            window.location.href = 'index.html';
-        });
+            if (newSalary && !isNaN(newSalary)) {
+                users[selectedStaff].salary = parseFloat(newSalary);
+                localStorage.setItem('usersData', JSON.stringify(users));
 
-        // Event listener untuk butang "Tukar Pendapatan"
-        document.getElementById('update-salary').addEventListener('click', function() {
-            window.location.href = 'update_salary.html';  // Arahkan ke halaman update_salary.html
+                alert('Pendapatan staf telah dikemaskini!');
+                window.location.href = 'dashboard_staff1.html';  // Kembali ke dashboard Staff1
+            } else {
+                document.getElementById('update-message').textContent = 'Sila masukkan jumlah yang sah!';
+            }
         });
     </script>
 </body>
