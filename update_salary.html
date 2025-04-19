@@ -58,6 +58,15 @@
             font-size: 18px;
             color: #333;
         }
+
+        .back-btn {
+            background-color: #f44336; /* Red color */
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            background-color: #e53935; /* Darker red on hover */
+        }
     </style>
 </head>
 <body>
@@ -87,7 +96,8 @@
 
         <button id="update-salary-btn" class="btn">Kemaskini Pendapatan</button>
 
-        <button id="logout" class="btn">Log Keluar</button>
+        <!-- Butang Kembali -->
+        <button id="back-btn" class="btn back-btn">Kembali</button>
 
         <div id="update-message" class="error" style="color: red;"></div>
     </div>
@@ -155,6 +165,11 @@
             } else {
                 document.getElementById('update-message').textContent = 'Sila masukkan jumlah yang sah!';
             }
+        });
+
+        // Event listener untuk butang "Kembali"
+        document.getElementById('back-btn').addEventListener('click', function() {
+            window.location.href = 'staff1.html';  // Kembali ke halaman staff1.html
         });
     </script>
 </body>
