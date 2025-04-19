@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: rgba(0, 0, 0, 0.7);  /* Gelap dengan alpha untuk blur */
+            padding: 40px 30px;
+            border-radius: 15px;
+            width: 350px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            backdrop-filter: blur(10px);  /* Efek blur pada background */
+        }
+
+        .login-container h2 {
+            font-size: 32px;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+
+        .input-container {
+            width: 100%;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-container i {
+            position: absolute;
+            left: 15px;
+            top: 14px;
+            color: #aaa;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px 15px 12px 40px; /* Space for icon */
+            margin: 10px 0;
+            border: 2px solid #444;
+            border-radius: 8px;
+            background-color: #333;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #2575fc;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #2575fc;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #6a11cb;
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form onsubmit="event.preventDefault(); login();">
+            <!-- Username input -->
+            <div class="input-container">
+                <i class="fas fa-user"></i> <!-- User Icon -->
+                <input type="text" id="Id" placeholder="Username" required>
+            </div>
+
+            <!-- Password input -->
+            <div class="input-container">
+                <i class="fas fa-lock"></i> <!-- Lock Icon -->
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Font Awesome for icons -->
+    <script>
+        window.onload = function() {
+            if (sessionStorage.getItem('user')) {
+                window.location.href = sessionStorage.getItem('user') + '.html';
+            }
+        };
+
+        function login() {
+            const id = document.getElementById('Id').value;
+            const password = document.getElementById('password').value;
+
+            if (id === '021130160065' && password === 'diko123') {
+                sessionStorage.setItem('user', 'diko');
+                window.location.href = 'diko.html';  // Halaman untuk diko
+            } else if (id === '090928021047' && password === 'farhan123') {
+                sessionStorage.setItem('user', 'farhan');
+                window.location.href = 'farhan.html';  // Halaman untuk farhan
+            } else if (id === '081028103261' && password === 'arief123') {
+                sessionStorage.setItem('user', 'arief');
+                window.location.href = 'arief.html';  // Halaman untuk tets (pengguna baru)
+            } else {
+                alert('ID atau password salah!');
+            }
+        }
+    </script>
+
+</body>
+</html>

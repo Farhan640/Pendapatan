@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kemaskini Gaji</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .profile {
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-item {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    select,
+    input[type="number"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 12px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    .logout-button {
+      background-color: #dc3545;
+      margin-top: 20px;
+    }
+
+    .logout-button:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="profile">
+      <h2>Muhammad Hamizan Haizat Bin Mohd Helmy</h2>
+      <p>Nombor ID: 021130160065</p>
+      <p>Latest Punye</p>
+      <p>Pendapatan Terkumpul: RM <span id="salaryDisplay">4,200</span></p>
+    </div>
+
+    <div class="form-group">
+      <div class="form-item">
+        <label for="userSelect">Pilih Pengguna:</label>
+        <select id="userSelect">
+          <option value="diko">Diko</option>
+          <option value="arief">Arief</option>
+          <option value="farhan">Farhan</option>
+        </select>
+      </div>
+
+      <div class="form-item">
+        <label for="salaryInput">Masukkan Gaji Baru:</label>
+        <input type="number" id="salaryInput" placeholder="Contoh: 4500">
+      </div>
+
+      <div class="form-item">
+        <button onclick="updateSalary()">Kemaskini Gaji</button>
+      </div>
+    </div>
+
+    <!-- Logout Button -->
+    <div class="form-item">
+      <button class="logout-button" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <script>
+    // Cek jika gaji untuk Diko ada dalam localStorage, jika tiada, set default RM 4200
+    if (!localStorage.getItem('dikoSalary')) {
+      localStorage.setItem('dikoSalary', '4200');
+    }
+    document.getElementById('salaryDisplay').innerText = localStorage.getItem('dikoSalary');
+
+    function updateSalary() {
+      const user = document.getElementById('userSelect').value;
+      const input = document.getElementById('salaryInput').value.trim();
+
+      if (!input) {
+        alert('Sila masukkan jumlah gaji.');
+        return;
+      }
+
+      let key = '';
+      if (user === 'farhan') key = 'farhanSalary';
+      else if (user === 'arief') key = 'ariefSalary';
+      else if (user === 'diko') key = 'dikoSalary';
+      else return;
+
+      let currentSalary = parseInt(localStorage.getItem(key) || '0');
+      let newSalary;
+
+      // Check for addition or subtraction
+      if (input.startsWith('+')) {
+        newSalary = currentSalary + parseInt(input.slice(1));  // Add value after '+'
+      } else if (input.startsWith('-')) {
+        newSalary = currentSalary - parseInt(input.slice(1));  // Subtract value after '-'
+      } else {
+        // Direct input to replace the salary
+        newSalary = currentSalary + parseInt(input);  // Add the input value to current salary
+      }
+
+      localStorage.setItem(key, newSalary);  // Store the updated salary in localStorage
+
+      // If current user is 'diko', update the display for their salary
+      if (user === 'diko') {
+        document.getElementById('salaryDisplay').innerText = newSalary.toLocaleString();
+      }
+
+      // Save history
+      let history = JSON.parse(localStorage.getItem('salaryHistory') || '[]');
+      const now = new Date().toLocaleString();
+      const userCap = user.charAt(0).toUpperCase() + user.slice(1);
+      history.push(`${userCap}: RM${newSalary.toLocaleString()} (${now})`);
+      localStorage.setItem('salaryHistory', JSON.stringify(history));
+
+      displayHistory();  // Update history display
+      alert(`Gaji ${userCap} telah dikemaskini kepada RM${newSalary.toLocaleString()}`);
+      document.getElementById('salaryInput').value = '';  // Clear the input field
+    }
+
+    function displayHistory() {
+      const list = document.getElementById('salaryHistory');
+      list.innerHTML = '';
+      const history = JSON.parse(localStorage.getItem('salaryHistory') || '[]');
+      history.slice().reverse().forEach(entry => {
+        const li = document.createElement('li');
+        li.textContent = entry;
+        list.appendChild(li);
+      });
+    }
+
+    function logout() {
+      // Remove all session and user data from localStorage to ensure complete logout
+      localStorage.removeItem('user');
+      localStorage.removeItem('dikoSalary');
+      localStorage.removeItem('farhanSalary');
+      localStorage.removeItem('ariefSalary');
+      window.location.href = 'index.html'; // Redirect to the login page
+    }
+
+    window.onload = function () {
+      displayHistory();
+    };
+  </script>
+</body>
+</html>
