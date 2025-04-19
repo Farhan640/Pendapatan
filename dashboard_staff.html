@@ -74,7 +74,8 @@
     </div>
 
     <script>
-        const users = {
+        // Data pengguna asal
+        let users = {
             'staff1': {password: 'password1', salary: 2000, role: 'admin'},
             'staff2': {password: 'password2', salary: 2500, role: 'user'},
             'staff3': {password: 'password3', salary: 3000, role: 'user'},
@@ -90,11 +91,12 @@
 
         const loggedInUser = localStorage.getItem('loggedInUser');
 
+        // Arahkan semula jika pengguna bukan staff1 atau tiada sesi login
         if (!loggedInUser || loggedInUser === 'staff1') {
             window.location.href = 'index.html'; // Halaman login jika staff1 atau tidak ada sesi
         }
 
-        // Tindakan Log Keluar
+        // Log keluar
         document.getElementById('logout').addEventListener('click', function() {
             localStorage.removeItem('loggedInUser');
             window.location.href = 'index.html';
@@ -105,10 +107,10 @@
             users = JSON.parse(localStorage.getItem('usersData'));
         }
 
+        // Tampilkan data pendapatan pengguna yang sedang log masuk
         const salaryList = document.getElementById('salary-list');
         const currentUser = users[loggedInUser];
 
-        // Paparkan gaji staf yang sedang log masuk
         const salaryItem = document.createElement('div');
         salaryItem.classList.add('salary-item');
         salaryItem.innerHTML = `<h3>Nama: ${loggedInUser}</h3><p>Pendapatan: RM ${currentUser.salary}</p>`;
