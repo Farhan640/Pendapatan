@@ -141,16 +141,17 @@
         }
 
         input[type='submit'] {
-            border: none;
-            outline: none;
-            background: #45f3ff;
-            padding: 11px 25px;
-            width: 100px;
-            margin-top: 10px;
-            border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+    border: none;
+    outline: none;
+    background: #45f3ff;
+    padding: 11px 25px;
+    width: 100px;
+    margin: 10px auto;  /* Centers the button */
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;  /* Ensures the button is treated as a block element */
+}
 
         input[type='submit']:active {
             opacity: 0.8;
